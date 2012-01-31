@@ -1,0 +1,7 @@
+.sass-cache*
+.DS_Store
+.powder
+rerun.txt
+config/dropbox.rb
+tmp/*
+tmp/**/*

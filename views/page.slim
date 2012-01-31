@@ -1,0 +1,8 @@
+== partial('shared/head')
+.container
+  .row
+    .span10
+      h1 = page.title
+      == yield
+
+  == partial('shared/footer')

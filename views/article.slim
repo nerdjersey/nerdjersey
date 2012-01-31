@@ -1,0 +1,13 @@
+== partial('shared/head')
+.container
+  .row
+    .span10
+      h1 = article.title
+      p = article.date.strftime("%B %dth, %Y")
+      ul
+      - if article.tags
+        - article.tags.each do |t|
+          li = t
+      == yield
+
+  == partial('shared/footer')
