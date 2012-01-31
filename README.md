@@ -16,7 +16,7 @@ All the gems are listed in the `Gemfile` so after forking and cloning, run `bund
 
 ### Dropbox
 
-The first real step is to get Dropbox set up. To do so, create and app here: [https://www.dropbox.com/developers/apps]( https://www.dropbox.com/developers/apps)
+The first real step is to get Dropbox set up. To do so, create an app here: [https://www.dropbox.com/developers/apps]( https://www.dropbox.com/developers/apps)
 
 Once you have it, replace the necessary values in `config/dropbox-example.rb` and rename the file to `config/dropbox.rb`.
 
