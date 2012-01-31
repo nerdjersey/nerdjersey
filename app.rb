@@ -10,7 +10,7 @@ require 'dropbox-api'
 require "sinatra/reloader" if development?
 
 # Config to include
-require './config/dropbox-example'
+require './config/dropbox'
 
 # Models to include
 require './models/document_parser'
