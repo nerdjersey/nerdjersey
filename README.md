@@ -1,5 +1,11 @@
 # Nerd Jersey
 
+---
+
+**Nerd Jersey is in super-early alpha mode with merely the bare bones implemented. Proceed at your own risk.**
+
+---
+
 Nerd Jersey is a blogging platform designed specifically for the wants and needs of developers (namely this developer) and is inspired by Marco Arment's [SecondCrack](http://github.com/marcoarment/secondcrack) (PHP) and Joe Hewitt's [Nerve](http://github.com/joehewitt/nerve) (NodeJS).
 
 The main goal of Nerd Jersey is to be a Sinatra-based, Dropbox-driven, Markdown-formatted blogging platform. Yes, a lot like http://scriptogr.am, but hopefully more powerful.
