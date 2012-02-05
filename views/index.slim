@@ -1,30 +1,31 @@
 == partial('shared/head')
 .container
   .hero-unit
-    h1 Hello, world!
-    p Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+    h1 Nerd Jersey
+    p == markdown "Nerd Jersey is a blogging platform designed specifically for the wants and needs of developers (namely this developer) and is inspired by Marco Arment's [SecondCrack](http://github.com/marcoarment/secondcrack) (PHP) and Joe Hewitt's [Nerve](http://github.com/joehewitt/nerve) (NodeJS)."
     p
-      a.btn.primary.large Learn more &raquo;
+      a.btn.primary.large href="http://github.com/seangaffney/nerd-jersey" Learn more at Github &raquo;
 
   / Uncomment these lines after Dropbox is set up
-  / .row
-  /   .span12
-  /     - articles.each do |a|
-  /       h4
-  /         a href=a.permalink = a.title
-
   .row
-    .span5
-      h2 Heading
-      p Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-      a.btn href='http://google.com' View details &raquo;
-    .span6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      a.btn href='http://google.com' View details &raquo;
-    .span5
-      h2 Heading
-      p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-      a.btn href='http://google.com' View details &raquo;
+    .span12
+      - articles.each do |a|
+        h2
+          a href=a.permalink = a.title
+        == markdown a.body[0..150]
+
+  / .row
+  /   .span5
+  /     h2 Heading
+  /     p Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+  /     a.btn href='http://google.com' View details &raquo;
+  /   .span6
+  /     h2 Heading
+  /     p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  /     a.btn href='http://google.com' View details &raquo;
+  /   .span5
+  /     h2 Heading
+  /     p Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+  /     a.btn href='http://google.com' View details &raquo;
   
   == partial('shared/footer')
