@@ -35,6 +35,10 @@ get '/' do
   slim :index, :locals => { :articles => articles }
 end
 
+get '/:name.ico' do
+  
+end
+
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf-8'
   scss(:"stylesheets/#{params[:name]}", Compass.sass_engine_options )
