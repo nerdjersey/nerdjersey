@@ -8,7 +8,9 @@ class Document
     metadata.slug = parameterize(metadata[:title])
     metadata.permalink = file_path(file_name).gsub(/(#{path}\/|.md)/, '').gsub('-', '/') + '/' + metadata.slug
     metadata.date = Date.parse file_name if path == 'articles'
+    
     self.new(body, metadata)
+    
   rescue Dropbox::API::Error::NotFound
     return false
   end
@@ -16,7 +18,7 @@ class Document
   def self.find_all()
     list = []
     
-    @@client.ls( path ).each do |f|
+    DocumentCache.ls( path ).each do |f|
       file_name = f.path.gsub(/(#{path}\/|.md)/, '')
       list << find(file_name)
     end
@@ -60,7 +62,7 @@ class Document
   protected
     
   def self.remote_file(file_path)
-    @@client.download file_path
+    DocumentCache.download file_path
   end
     
   def self.parsed_file(file_path)

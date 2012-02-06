@@ -6,6 +6,7 @@ require 'kramdown'
 require 'erb'
 require 'slim'
 require 'dropbox-api'
+require 'dalli'
 
 require "sinatra/reloader" if development?
 
@@ -14,6 +15,7 @@ require './config/dropbox'
 
 # Models to include
 require './models/document_parser'
+require './models/document_cache'
 require './models/document'
 require './models/article'
 require './models/page'
@@ -22,6 +24,8 @@ configure do
   Compass.add_project_configuration(File.join(Sinatra::Application.root, 'config', 'compass.config'))
   # Slim::Engine.set_default_options :sections => true
 end
+
+set :cache, Dalli::Client.new
 
 before do
   # Kill trailing slash if it exists
