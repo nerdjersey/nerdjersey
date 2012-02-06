@@ -23,7 +23,8 @@ class Document
       list << find(file_name)
     end
     
-    list.sort { |a,b| b.date <=> a.date }
+    list.delete_if { |a| a.date > Time.now }
+    list.sort! { |a,b| b.date <=> a.date }
   end
   
   def initialize(body, metadata = {})
