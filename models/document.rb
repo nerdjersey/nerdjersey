@@ -3,13 +3,25 @@ class Document < Application
   
   @@client ||= Dropbox::API::Client.new(:token  => DROPBOX_CLIENT_TOKEN, :secret => DROPBOX_CLIENT_SECRET)
   
-  def self.find(file_name)
+  def self.fetch( file_name )
     body, metadata = parsed_file( file_path(file_name) )
-    metadata.slug = parameterize(metadata[:title])
-    metadata.permalink = file_path(file_name).gsub(/(#{path}\/|.md)/, '').gsub('-', '/') + '/' + metadata.slug
-    metadata.date = Date.parse file_name if path == 'articles'
     
-    self.new(body, metadata)
+    db_metadata = DocumentCache.find( file_path(file_name) )
+    
+    metadata.date ||= db_metadata.modified
+    # metadata.date = metadata.date? ? Time.parse(metadata.date) : Time.parse(db_metadata.modified)
+    metadata.date = Time.parse(metadata.date)
+    metadata.title ||= file_name.gsub('.md', '')
+    metadata.slug ||= parameterize(metadata.title)
+    
+    # metadata.permalink ||= file_path(file_name).gsub(/(#{path}\/|.md)/, '').gsub('-', '/') + '/' + metadata.slug
+    metadata.permalink = "/#{path}/" + metadata.slug
+    # metadata.date = Date.parse file_name if path == 'articles'
+    
+    settings.cache.set( metadata.permalink, self.new(body, metadata) )
+    
+    # self.new(body, metadata)
+    settings.cache.get( metadata.permalink )
     
   rescue Dropbox::API::Error::NotFound
     return false
@@ -20,19 +32,26 @@ class Document < Application
     
     DocumentCache.ls( path ).each do |f|
       file_name = f.path.gsub(/(#{path}\/|.md)/, '')
-      list << find(file_name)
+      list << fetch( file_name )
     end
     
     list.delete_if { |a| a.date > Time.now }
     list.sort! { |a,b| b.date <=> a.date }
   end
   
-  def initialize(body, metadata = {})
+  def self.find( slug )
+    if !settings.cache.get( slug )
+      find_all
+    end
+    settings.cache.get( slug )
+  end
+  
+  def initialize( body, metadata = {} )
     @body = body
     @metadata = metadata
   end
   
-  def method_missing(name, *args, &blk)
+  def method_missing( name, *args, &blk )
     if args.empty? && blk.nil? && @metadata.has_key?(name)
       @metadata[name]
     else

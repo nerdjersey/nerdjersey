@@ -54,9 +54,9 @@ get '/javascripts/:name.js' do
   coffee :"javascripts/#{params[:name]}"
 end
 
-get '/:title' do
+get '/:slug' do
   content_type 'text/html', :charset => 'utf-8'
-  page = Page.find( params[:title] )
+  page = Page.find( '/pages/' + params[:slug] )
   if page
     markdown page.body,
       :layout => :page, :layout_engine => :slim,
@@ -66,10 +66,10 @@ get '/:title' do
   end
 end
 
-get '/:year/:month/:day/?:slug?' do
+get '/articles/:slug' do
   content_type 'text/html', :charset => 'utf-8'
-  date = [ params[:year], params[:month], params[:day] ].join('-')
-  article = Article.find( date )
+  # date = [ params[:year], params[:month], params[:day] ].join('-')
+  article = Article.find( '/articles/' + params[:slug] )
   if article
     markdown article.body,
       :layout => :article, :layout_engine => :slim,
