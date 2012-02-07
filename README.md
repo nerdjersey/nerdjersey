@@ -46,9 +46,26 @@ Now, in your Dropbox, you should see an `Apps` folder with a subfolder named aft
 
 ### Content Creation
 
-Articles should have filenames in the `YYYY-MM-DD.md` format. Pages are named after the slug you would like them to use, i.e. `about.md`. Meta information is separated from content with at least three minus signs (or hyphens) `---`. The `title` metadata is required for all articles and pages and articles may optionally have tags, as shown in this example.
+Once you've got the folder structure set up, just start creating Markdown files. Nerd Jersey takes care of the rest (naming, slugifying, published date, etc.) with "Smart Defaults".
+
+#### Title
+
+By default, the title will be taken from the filename. However, if you'd like to name your file something different than the title of your article, just add a `title` line to the meta YAML at the top of your file. Meta information is separated from content with a `---` delimiter on a new line (you can use more than three hyphens if you wish).
+
+#### URL Slug
+
+By default, the slug is created by parameterizing the title. However, if you'd like to define your own slug, just add a `title` line to the meta YAML at the top of your file.
+
+#### Date
+
+By default, the publish date is taken from the file's modified date on the filesystem. However, if you'd like to define your own publish date, just add a `date` line to the meta YAML at the top of your file. Seeing a theme yet? Ruby just happens to be really good at parsing Date/Time strings, so just type whatever makes sense to you. Files with a future date/time will not be published until the date/time specified.
+
+#### Whatever You Want
+
+All of the YAML in the metadata section is parsed and available via the document's object. So for the tags below, just call article.tags to get an array of tags. You can add whatever other YAML data you want and it'll be ready for you in the views.
 
     title: My First Blog Post
+    date: February 29, 2012 at 9:02am
     tags:
       - Winner
       - Chicken Dinner
