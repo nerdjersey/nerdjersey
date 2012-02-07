@@ -1,4 +1,4 @@
-class Document
+class Document < Application
   attr_reader :body, :metadata
   
   @@client ||= Dropbox::API::Client.new(:token  => DROPBOX_CLIENT_TOKEN, :secret => DROPBOX_CLIENT_SECRET)
@@ -72,22 +72,6 @@ class Document
     
   def self.file_path(file_name)
     "#{self.path}/#{file_name}.md"
-  end
-  
-  def self.parameterize(string, sep = '-')
-    require 'iconv'
-    # replace accented chars with their ascii equivalents
-    parameterized_string = Iconv.iconv('ascii//ignore//translit', 'utf-8', string)[0]
-    # Turn unwanted chars into the separator
-    parameterized_string.downcase!.gsub!(/[^a-z0-9\-_]+/, sep)
-    unless sep.nil? || sep.empty?
-      re_sep = Regexp.escape(sep)
-      # No more than one of the separator in a row.
-      parameterized_string.gsub!(/#{re_sep}{2,}/, sep)
-      # Remove leading/trailing separator.
-      parameterized_string.gsub!(/^#{re_sep}|#{re_sep}$/, '')
-    end
-    parameterized_string.downcase
   end
 
 end
