@@ -14,6 +14,7 @@ require "sinatra/reloader" if development?
 require './config/dropbox'
 
 # Models to include
+require './models/application'
 require './models/document_parser'
 require './models/document_cache'
 require './models/document'
