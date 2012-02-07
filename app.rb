@@ -44,6 +44,11 @@ get '/:name.ico' do
   
 end
 
+get '/clear' do
+  settings.cache.flush_all
+  erb 'cache cleared'
+end
+
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf-8'
   scss(:"stylesheets/#{params[:name]}", Compass.sass_engine_options )
