@@ -48,19 +48,19 @@ Now, in your Dropbox, you should see an `Apps` folder with a subfolder named aft
 
 Once you've got the folder structure set up, just start creating Markdown files. Nerd Jersey takes care of the rest (naming, slugifying, published date, etc.) with "Smart Defaults".
 
-#### Title
+##### Title
 
-By default, the title will be taken from the filename. However, if you'd like to name your file something different than the title of your article, just add a `title` line to the meta YAML at the top of your file. Meta information is separated from content with a `---` delimiter on a new line (you can use more than three hyphens if you wish).
+By default, the title will be taken from the filename. However, if you'd like to title your article something different than the name of your file, just add a `title` line to the meta YAML at the top of your file. Meta information is separated from content with a `---` delimiter on a new line (you can use more than three hyphens if you wish).
 
-#### URL Slug
+##### URL Slug
 
-By default, the slug is created by parameterizing the title. However, if you'd like to define your own slug, just add a `title` line to the meta YAML at the top of your file.
+By default, the slug is created by parameterizing the title. However, if you'd like to define your own slug, just add a `slug` line to the meta YAML at the top of your file.
 
-#### Date
+##### Date
 
-By default, the publish date is taken from the file's modified date on the filesystem. However, if you'd like to define your own publish date, just add a `date` line to the meta YAML at the top of your file. Seeing a theme yet? Ruby just happens to be really good at parsing Date/Time strings, so just type whatever makes sense to you. Files with a future date/time will not be published until the date/time specified.
+By default, the publish date is taken from the file's modified date on the filesystem. However, if you'd like to define your own publish date, just add a `date` line to the meta YAML at the top of your file. Noticing a theme yet? Ruby just happens to be really good at parsing Date/Time strings, so just type whatever makes sense to you. Files with a future date/time will not be published until the date/time specified.
 
-#### Whatever You Want
+##### Whatever You Want
 
 All of the YAML in the metadata section is parsed and available via the document's object. So for the tags below, just call article.tags to get an array of tags. You can add whatever other YAML data you want and it'll be ready for you in the views.
 
