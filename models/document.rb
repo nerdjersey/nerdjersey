@@ -12,7 +12,7 @@ class Document < Application
     # metadata.date = metadata.date? ? Time.parse(metadata.date) : Time.parse(db_metadata.modified)
     metadata.date = Time.parse(metadata.date)
     metadata.title ||= file_name.gsub('.md', '')
-    metadata.slug ||= parameterize(metadata.title)
+    metadata.slug = parameterize(metadata.slug) || parameterize(metadata.title)
     
     # metadata.permalink ||= file_path(file_name).gsub(/(#{path}\/|.md)/, '').gsub('-', '/') + '/' + metadata.slug
     metadata.permalink = "/#{path}/" + metadata.slug
