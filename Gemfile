@@ -2,6 +2,8 @@ source :rubygems
 
 gem 'sinatra', '>= 1.3.2'
 gem 'thin'
+gem 'activesupport'
+gem 'i18n'
 gem 'haml'
 gem 'slim'
 gem 'sass'

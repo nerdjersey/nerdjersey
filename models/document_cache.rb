@@ -1,9 +1,9 @@
-class DocumentCache < Application
+class DocumentCache < Base
   
-  @@client ||= Dropbox::API::Client.new(:token  => DROPBOX_CLIENT_TOKEN, :secret => DROPBOX_CLIENT_SECRET)
+  @@client ||= Dropbox::API::Client.new(:token => settings.dropbox_client_token, :secret => settings.dropbox_client_secret)
   
   def self.ls( path )
-    path_key = parameterize(path)
+    path_key = path.parameterize
     # settings.cache.get( path_key ) || settings.cache.set( path_key, @@client.ls(path) )
     if !settings.cache.get( path_key )
       settings.cache.set( path_key, @@client.ls(path) )
@@ -12,7 +12,7 @@ class DocumentCache < Application
   end
   
   def self.download( file_path )
-    file_path_key = parameterize(file_path)
+    file_path_key = file_path.parameterize
     # settings.cache.get( file_path ) || settings.cache.set( file_path, @@client.download(file_path) )
     if !settings.cache.get( file_path_key )
       settings.cache.set( file_path_key, @@client.download(file_path) )
@@ -21,7 +21,7 @@ class DocumentCache < Application
   end
   
   # def self.find( file_path )
-  #   file_path_key = parameterize(file_path)
+  #   file_path_key = file_path.parameterize
   #   if !settings.cache.get( file_path_key + '-meta' )
   #     settings.cache.set( file_path_key + '-meta', @@client.find(file_path) )
   #   end

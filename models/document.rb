@@ -1,7 +1,6 @@
-class Document < Application
-  attr_reader :body, :metadata
+class Document < Base
   
-  @@client ||= Dropbox::API::Client.new(:token  => DROPBOX_CLIENT_TOKEN, :secret => DROPBOX_CLIENT_SECRET)
+  attr_reader :body, :metadata
   
   def self.fetch( file_name )
     body, metadata = parsed_file( file_path(file_name) )
@@ -12,7 +11,7 @@ class Document < Application
     # metadata.date = metadata.date? ? Time.parse(metadata.date) : Time.parse(db_metadata.modified)
     metadata.date = Time.parse(metadata.date)
     metadata.title ||= file_name.gsub('.md', '')
-    metadata.slug = parameterize(metadata.slug) || parameterize(metadata.title)
+    metadata.slug = (metadata.slug.nil? ? metadata.title : metadata.slug).parameterize
     
     # metadata.permalink ||= file_path(file_name).gsub(/(#{path}\/|.md)/, '').gsub('-', '/') + '/' + metadata.slug
     metadata.permalink = "/#{path}/" + metadata.slug
