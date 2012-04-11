@@ -1,0 +1,7 @@
+strategy: dropbox
+
+dropbox_client_token: XXXXXXXXXXXXXXX
+dropbox_client_secret: YYYYYYYYYYYYYYY
+
+simple_note_user_name: you@email.com
+simple_note_password: password
