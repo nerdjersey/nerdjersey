@@ -1,5 +1,5 @@
 require 'sinatra/base'
-require "sinatra/config_file"
+require 'sinatra/config_file'
 
 class NerdJersey < Sinatra::Base
   register Sinatra::ConfigFile
@@ -17,23 +17,26 @@ class NerdJersey < Sinatra::Base
   require 'active_support/core_ext'
 
   require 'dropbox-api'
-  require "simplenote"
+  require 'simplenote'
 
   if settings.development?
     require 'pry'
   end
 
-  # Libs to include
-  require './lib/run_later'
-
+  # Libraries to include
+  # require './lib/run_later'
+  # require './lib/utils'
 
   # Models to include
   require './models/base'
-  require './models/document_parser'
-  require './models/document_cache'
   require './models/document'
   require './models/article'
   require './models/page'
+
+  # Strategies to include
+  require './strategies/file_drawer/dropbox'
+  require './strategies/file_drawer/simple_note'
+  require './strategies/file_cabinet'
 
   configure do
     Compass.add_project_configuration(File.join(root, 'config', 'compass.config'))
@@ -51,11 +54,6 @@ class NerdJersey < Sinatra::Base
   get '/' do
     articles = Article.find_all
     slim :index, :locals => { :articles => articles }
-  end
-
-  get '/pry' do
-    binding.pry
-    render :text => 'hi'
   end
 
   get '/:name.ico' do
