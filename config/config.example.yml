@@ -1,5 +1,7 @@
 strategy: dropbox
 
+dropbox_app_key: AAAAAAAAAAAAAAA
+dropbox_app_secret: BBBBBBBBBBBBBBB
 dropbox_client_token: XXXXXXXXXXXXXXX
 dropbox_client_secret: YYYYYYYYYYYYYYY
 

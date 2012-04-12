@@ -26,8 +26,6 @@ class NerdJersey < Sinatra::Base
   # Libs to include
   require './lib/run_later'
 
-  # Config to include
-  require './config/app_config'
 
   # Models to include
   require './models/base'
