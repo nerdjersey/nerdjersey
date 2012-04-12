@@ -56,10 +56,6 @@ class NerdJersey < Sinatra::Base
     slim :index, :locals => { :articles => articles }
   end
 
-  get '/:name.ico' do
-    raise Sinatra::NotFound
-  end
-
   get '/clear' do
     settings.cache.flush_all
     erb 'cache cleared'
