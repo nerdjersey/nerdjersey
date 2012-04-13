@@ -1,6 +1,7 @@
-class FileCabinet < Base
 
-  @@strategy = "#{settings.strategy.classify}Drawer".constantize
+class FileCabinet
+
+  @@strategy = "#{Settings.strategy.classify}Drawer".constantize
 
   def self.list( query )
     @@strategy.list( query )

@@ -1,8 +1,8 @@
 require 'yaml'
 
-class SimpleNoteDrawer < Base
+class SimpleNoteDrawer
 
-  @@client = SimpleNoteApi2.new(settings.simple_note_username, settings.simple_note_password)
+  @@client = SimpleNoteApi2.new(Settings.simple_note_username, Settings.simple_note_password)
 
   def self.list( query )
     raise NotImplementedError

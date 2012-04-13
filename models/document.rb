@@ -1,12 +1,12 @@
-class Document < Base
+class Document
 
   attr_reader :body, :metadata
 
   def self.fetch( file_path )
     body, metadata = FileCabinet.parse( path, file_path )
 
-    settings.cache.set( metadata.permalink, self.new(body, metadata) )
-    settings.cache.get( metadata.permalink )
+    Settings.cache.set( metadata.permalink, self.new(body, metadata) )
+    Settings.cache.get( metadata.permalink )
 
   rescue Dropbox::API::Error::NotFound
     return false
@@ -23,10 +23,10 @@ class Document < Base
   end
 
   def self.find( slug )
-    if !settings.cache.get( slug )
+    if !Settings.cache.get( slug )
       find_all
     end
-    settings.cache.get( slug )
+    Settings.cache.get( slug )
   end
 
   def initialize( body, metadata = {} )

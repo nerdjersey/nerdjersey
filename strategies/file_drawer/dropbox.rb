@@ -1,27 +1,28 @@
 require 'yaml'
 
-class DropboxDrawer < Base
+class DropboxDrawer
 
-  Dropbox::API::Config.app_key = settings.dropbox_app_key
-  Dropbox::API::Config.app_secret = settings.dropbox_app_secret
-  Dropbox::API::Config.mode = 'sandbox' # if you have a single-directory app or "dropbox" if it has access to the whole dropbox
+  Dropbox::API::Config.app_key = Settings.dropbox_app_key
+  Dropbox::API::Config.app_secret = Settings.dropbox_app_secret
+  # if you have a single-directory app or "dropbox" if it has access to the whole dropbox
+  Dropbox::API::Config.mode = 'sandbox'
 
-  @@client ||= Dropbox::API::Client.new(:token => settings.dropbox_client_token, :secret => settings.dropbox_client_secret)
+  @@client ||= Dropbox::API::Client.new(:token => Settings.dropbox_client_token, :secret => Settings.dropbox_client_secret)
 
   def self.list( path )
     path_key = path.parameterize
-    if !settings.cache.get( path_key )
-      settings.cache.set( path_key, @@client.ls(path) )
+    if !Settings.cache.get( path_key )
+      Settings.cache.set( path_key, @@client.ls(path) )
     end
-    return settings.cache.get( path_key )
+    return Settings.cache.get( path_key )
   end
 
   def self.find( file_path )
     file_path_key = file_path.parameterize
-    if !settings.cache.get( file_path_key )
-      settings.cache.set( file_path_key, @@client.download(file_path) )
+    if !Settings.cache.get( file_path_key )
+      Settings.cache.set( file_path_key, @@client.download(file_path) )
     end
-    return settings.cache.get( file_path_key )
+    return Settings.cache.get( file_path_key )
   end
 
   def self.search( file_path )

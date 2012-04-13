@@ -24,11 +24,11 @@ class NerdJersey < Sinatra::Base
   end
 
   # Libraries to include
+  require './lib/settings'
   # require './lib/run_later'
   # require './lib/utils'
 
   # Models to include
-  require './models/base'
   require './models/document'
   require './models/article'
   require './models/page'
