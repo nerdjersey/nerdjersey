@@ -1,23 +1,23 @@
 require 'sinatra/base'
 require 'sinatra/config_file'
 
+require 'sass'
+require 'compass'
+require 'coffee-script'
+require 'kramdown'
+require 'erb'
+require 'slim'
+require 'dalli'
+
+require 'active_support/core_ext'
+
+require 'dropbox-api'
+require 'simplenote'
+
+
 class NerdJersey < Sinatra::Base
   register Sinatra::ConfigFile
-
   config_file './config/config.yml'
-
-  require 'sass'
-  require 'compass'
-  require 'coffee-script'
-  require 'kramdown'
-  require 'erb'
-  require 'slim'
-  require 'dalli'
-
-  require 'active_support/core_ext'
-
-  require 'dropbox-api'
-  require 'simplenote'
 
   if settings.development?
     require 'pry'
