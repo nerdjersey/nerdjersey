@@ -1,3 +1,5 @@
+require './models/file_drawer/dropbox'
+require './models/file_drawer/simple_note'
 
 class FileCabinet
 

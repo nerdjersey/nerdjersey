@@ -29,14 +29,10 @@ class NerdJersey < Sinatra::Base
   # require './lib/utils'
 
   # Models to include
+  require './models/file_cabinet'
   require './models/document'
   require './models/article'
   require './models/page'
-
-  # Strategies to include
-  require './strategies/file_drawer/dropbox'
-  require './strategies/file_drawer/simple_note'
-  require './strategies/file_cabinet'
 
   configure do
     Compass.add_project_configuration(File.join(root, 'config', 'compass.config'))
