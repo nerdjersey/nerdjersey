@@ -19,9 +19,7 @@ class NerdJersey < Sinatra::Base
   register Sinatra::ConfigFile
   config_file './config/config.yml'
 
-  if settings.development?
-    require 'pry'
-  end
+  require 'pry' if settings.development?
 
   # Libraries to include
   require './lib/settings'
@@ -48,7 +46,7 @@ class NerdJersey < Sinatra::Base
   end
 
   get '/' do
-    articles = Article.find_all
+    articles = Article.all
     slim :index, :locals => { :articles => articles }
   end
 

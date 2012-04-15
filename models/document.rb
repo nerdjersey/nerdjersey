@@ -1,70 +1,64 @@
 class Document
 
-  attr_reader :body, :metadata
+  attr_reader :remote_key, :body, :metadata
 
-  def self.fetch( file_path )
-    body, metadata = FileCabinet.parse( path, file_path )
-
-    Settings.cache.set( metadata.permalink, self.new(body, metadata) )
-    Settings.cache.get( metadata.permalink )
-
-  rescue Dropbox::API::Error::NotFound
-    return false
-  end
-
-  def self.find_all()
+  def self.all
     documents = []
-    FileCabinet.list( path ).each do |f|
-      documents << fetch( f.path )
+    FileCabinet.list( doc_type ).each do |f|
+      file_path = f.path.gsub(/^\//, '')
+      document = FileCabinet.find( doc_type, file_path )
+      Settings.cache.set( document.permalink, document )
+      documents << document
     end
 
     documents.delete_if { |a| a.date > Time.now }
+    documents.delete_if { |a| a.published == false || a.publish == false }
     documents.sort! { |a,b| b.date <=> a.date }
-  end
 
-  def self.find( slug )
-    if !Settings.cache.get( slug )
-      find_all
+    if !Settings.cache.get( doc_type )
+      Settings.cache.set( doc_type, documents )
     end
-    Settings.cache.get( slug )
+    Settings.cache.get( doc_type )
   end
 
-  def initialize( body, metadata = {} )
+  def self.find( permalink )
+    if !Settings.cache.get( permalink )
+      all
+    end
+    Settings.cache.get( permalink )
+  end
+
+  def initialize( remote_key, document_data )
+    @remote_key = remote_key
+    body, metadata = FileCabinet.parse(document_data)
     @body = body
     @metadata = metadata
   end
 
   def method_missing( name, *args, &blk )
-    if args.empty? && blk.nil? && @metadata.has_key?(name)
-      @metadata[name]
+    if args.empty? && blk.nil? && self.metadata.has_key?(name)
+      self.metadata[name]
     else
-      return false
+      return nil
     end
   end
 
   def [](meta)
-    if @metadata.has_key?(meta)
-      @metadata.fetch(meta)
+    if self.metadata.has_key?(meta)
+      self.metadata.fetch(meta)
     else
       nil
     end
   end
 
-  def self.path
+  def self.doc_type
     raise NotImplementedError
   end
 
-  # TODO: Add category support
+  # TODO: Add category/tag support
   # def category
   #   # @category ||= Category.find(@metadata[:category])
   #   @category ||= @metadata[:category]
   # end
-
-
-  private
-
-  def self.parsed_file( file_path )
-    FileCabinet.parse file_path
-  end
 
 end

@@ -1,7 +1,7 @@
 class Article < Document
 
-  def self.path
-    'articles'
+  def self.doc_type
+    Settings.articles
   end
 
 end

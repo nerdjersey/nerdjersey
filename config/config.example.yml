@@ -5,5 +5,11 @@ dropbox_app_secret: BBBBBBBBBBBBBBB
 dropbox_client_token: XXXXXXXXXXXXXXX
 dropbox_client_secret: YYYYYYYYYYYYYYY
 
-simple_note_user_name: you@email.com
+# SimpleNote not yet implemented :)
+simple_note_username: you@email.com
 simple_note_password: password
+
+# Either the folder name (Dropbox) or note tag (SimpleNote)
+# for articles and pages
+articles: articles
+pages: pages

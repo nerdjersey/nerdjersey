@@ -3,22 +3,41 @@ require './models/file_drawer/simple_note'
 
 class FileCabinet
 
-  @@strategy = "#{Settings.strategy.classify}Drawer".constantize
+  @@strategy = "FileDrawer::#{Settings.strategy.classify}Drawer".constantize
 
   def self.list( query )
     @@strategy.list( query )
   end
 
-  def self.find( query )
-    @@strategy.find( query )
+  def self.find( doc_type, query )
+    @@strategy.find( doc_type, query )
   end
 
   def self.search( query )
     @@strategy.search( query )
   end
 
-  def self.parse( doc_type, query )
-    @@strategy.parse( doc_type, query )
+  def self.parse( document )
+    contents = document.contents
+    if contents.include?('---') && contents[0..25].include?(':')
+      meta, body = contents.split(/\r?\n---+\r?\n/, 2)
+      meta = YAML.load(meta)
+      metadata = Hashie::Mash.new(meta)
+    else
+      body = contents
+      metadata = Hashie::Mash.new
+    end
+
+    metadata = parse_metadata( document, metadata )
+
+    return body, metadata
+
+  rescue Dropbox::API::Error::NotFound
+    return false
+  end
+
+  def self.parse_metadata( document, metadata )
+    @@strategy.parse_metadata( document, metadata )
   end
 
 end
