@@ -1,7 +1,7 @@
 require 'yaml'
 
-module FileDrawer
-  class SimpleNoteDrawer
+class DocumentStore
+  class SimpleNoteStore
 
     @@client = SimpleNoteApi2.new(Settings.simple_note_username, Settings.simple_note_password)
 

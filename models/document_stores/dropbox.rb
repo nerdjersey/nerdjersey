@@ -1,11 +1,11 @@
 require 'yaml'
 
-module FileDrawer
-  module DropboxDrawer
+class DocumentStore
+  class DropboxStore
 
     Dropbox::API::Config.app_key = Settings.dropbox_app_key
     Dropbox::API::Config.app_secret = Settings.dropbox_app_secret
-    #If you have a single-directory app or "dropbox" if it has access to the whole dropbox
+    # If you have a single-directory app or "dropbox" if it has access to the whole dropbox
     Dropbox::API::Config.mode = 'sandbox'
 
     @@client ||= Dropbox::API::Client.new(:token => Settings.dropbox_client_token, :secret => Settings.dropbox_client_secret)

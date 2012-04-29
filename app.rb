@@ -27,7 +27,7 @@ class NerdJersey < Sinatra::Base
   # require './lib/utils'
 
   # Models to include
-  require './models/file_cabinet'
+  require './models/document_store'
   require './models/document'
   require './models/article'
   require './models/page'

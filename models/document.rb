@@ -4,9 +4,9 @@ class Document
 
   def self.all
     documents = []
-    FileCabinet.list( doc_type ).each do |f|
+    DocumentStore.list( doc_type ).each do |f|
       file_path = f.path.gsub(/^\//, '')
-      document = FileCabinet.find( doc_type, file_path )
+      document = DocumentStore.find( doc_type, file_path )
       Settings.cache.set( document.permalink, document )
       documents << document
     end
@@ -30,7 +30,7 @@ class Document
 
   def initialize( remote_key, document_data )
     @remote_key = remote_key
-    body, metadata = FileCabinet.parse(document_data)
+    body, metadata = DocumentStore.parse(document_data)
     @body = body
     @metadata = metadata
   end

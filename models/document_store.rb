@@ -1,9 +1,9 @@
-require './models/file_drawer/dropbox'
-require './models/file_drawer/simple_note'
+require './models/document_stores/dropbox'
+require './models/document_stores/simple_note'
 
-class FileCabinet
+class DocumentStore
 
-  @@strategy = "FileDrawer::#{Settings.strategy.classify}Drawer".constantize
+  @@strategy = "DocumentStore::#{Settings.strategy.classify}Store".constantize
 
   def self.list( query )
     @@strategy.list( query )
