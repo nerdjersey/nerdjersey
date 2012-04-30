@@ -8,18 +8,29 @@ class DocumentStore
     # If you have a single-directory app or "dropbox" if it has access to the whole dropbox
     Dropbox::API::Config.mode = 'sandbox'
 
-    @@client ||= Dropbox::API::Client.new(:token => Settings.dropbox_client_token, :secret => Settings.dropbox_client_secret)
+    def self.client
+      @client ||= Dropbox::API::Client.new(:token => Settings.dropbox_client_token, :secret => Settings.dropbox_client_secret)
+    end
 
     def self.list( path )
-      @@client.ls(path)
+      documents = []
+
+      client.ls( path ).each do |f|
+        file_path = f.path.gsub(/^\//, '')
+        document = find( path, file_path )
+        documents << document
+      end
+
+      documents
     rescue Dropbox::API::Error::NotFound
       return false
     end
 
     def self.find( doc_type, file_path )
-      document = @@client.find(file_path)
-      document.contents = @@client.download(file_path)
+      document = client.find(file_path)
+      document.contents = client.download(file_path)
       document.doc_type = doc_type
+
       Document.new(file_path, document)
     rescue Dropbox::API::Error::NotFound
       return false

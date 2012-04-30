@@ -31,9 +31,6 @@ class DocumentStore
     metadata = parse_metadata( document, metadata )
 
     return body, metadata
-
-  rescue Dropbox::API::Error::NotFound
-    return false
   end
 
   def self.parse_metadata( document, metadata )

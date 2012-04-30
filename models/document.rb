@@ -3,19 +3,17 @@ class Document
   attr_reader :remote_key, :body, :metadata
 
   def self.all
-    documents = []
-    DocumentStore.list( doc_type ).each do |f|
-      file_path = f.path.gsub(/^\//, '')
-      document = DocumentStore.find( doc_type, file_path )
-      Settings.cache.set( document.permalink, document )
-      documents << document
-    end
-
-    documents.delete_if { |a| a.date > Time.now }
-    documents.delete_if { |a| a.published == false || a.publish == false }
-    documents.sort! { |a,b| b.date <=> a.date }
-
     if !Settings.cache.get( doc_type )
+      documents = DocumentStore.list( doc_type ) || []
+
+      documents.delete_if { |a| a.date > Time.now }
+      documents.delete_if { |a| a.published == false || a.publish == false }
+      documents.sort! { |a,b| b.date <=> a.date }
+
+      documents.each do |d|
+        Settings.cache.set( d.permalink, d )
+      end
+
       Settings.cache.set( doc_type, documents )
     end
     Settings.cache.get( doc_type )
