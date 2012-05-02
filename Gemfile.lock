@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/seangaffney/dropbox-api.git
-  revision: b7d1d7ed878834b9412c287c4eefc1feeaa65b16
+  remote: git://github.com/nerdjersey/dropbox-api.git
+  revision: fe317bb39a4fa4391dd7e5d581a7e1fac3db2c75
   specs:
     dropbox-api (0.2.1)
       hashie
@@ -57,7 +57,7 @@ GEM
       syntax (>= 1.0.0)
     method_source (0.7.1)
     multi_json (1.0.4)
-    oauth (0.4.5)
+    oauth (0.4.6)
     pry (0.9.8.4)
       coderay (~> 1.0.5)
       method_source (~> 0.7.1)

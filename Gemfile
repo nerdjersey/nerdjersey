@@ -3,7 +3,7 @@ source :rubygems
 gem 'sinatra', '>= 1.3.2'
 gem 'thin'
 
-gem 'dropbox-api', :git => 'git://github.com/seangaffney/dropbox-api.git', :require => 'dropbox-api'
+gem 'dropbox-api', :git => 'git://github.com/nerdjersey/dropbox-api.git', :require => 'dropbox-api'
 gem 'simplenote', :git => 'git://github.com/simonjefford/simplenote.git', :require => 'simplenote'
 
 gem 'activesupport'
