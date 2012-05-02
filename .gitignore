@@ -1,9 +1,6 @@
 .sass-cache*
-.DS_Store
+.DS_Store*
 .powder
 rerun.txt
-config/dropbox.rb
 tmp/*
 tmp/**/*
-config/config.yml
-config/app_config.rb
