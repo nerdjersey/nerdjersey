@@ -18,7 +18,7 @@ All the gems are listed in the `Gemfile` so after forking and cloning, run `bund
 
 The first real step is to get Dropbox set up. To do so, create an app here: [https://www.dropbox.com/developers/apps]( https://www.dropbox.com/developers/apps), but be sure to select "App folder" as the access level.
 
-Once you have it, replace the necessary values in `config/dropbox-example.rb` and rename the file to `config/dropbox.rb`.
+Once you have it, replace the necessary values in `config/config.example.yml` and rename the file to `config/config.yml`.
 
     Dropbox::API::Config.app_key    = 'AAAAAAAAAAAAAAA'
     Dropbox::API::Config.app_secret = 'BBBBBBBBBBBBBBB'
@@ -31,7 +31,7 @@ When you call this Rake task, it will ask you to provide the consumer key (app k
 
 Simply go to that url, authorize the app, then press `ENTER` in the console.
 
-The rake task will output provide the client token and client secret, which you can now add to `config/dropbox.rb`.
+The rake task will output provide the client token and client secret, which you can now add to `config/config.yml`.
 
     DROPBOX_CLIENT_TOKEN = 'XXXXXXXXXXXXXXX'
     DROPBOX_CLIENT_SECRET = 'YYYYYYYYYYYYYYY'
