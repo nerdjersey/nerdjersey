@@ -25,7 +25,7 @@ Once you have it, replace the necessary values in `config/dropbox-example.rb` an
 
 Back at the console, run
 
-    rake dropbox:authorize
+    bundle exec rake dropbox:authorize
 
 When you call this Rake task, it will ask you to provide the consumer key and secret. Afterwards it will present you with an authorize url on Dropbox.
 
