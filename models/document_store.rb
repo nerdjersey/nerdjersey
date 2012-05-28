@@ -21,6 +21,8 @@ class DocumentStore
     contents = document.contents
     if contents.include?('---') && contents[0..25].include?(':')
       meta, body = contents.split(/\r?\n---+\r?\n/, 2)
+      # Replace all tabs with strings so YAML parser doesn't get angry
+      meta.gsub!(/\t/, '  ')
       meta = YAML.load(meta)
       metadata = Hashie::Mash.new(meta)
     else
