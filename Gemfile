@@ -26,4 +26,7 @@ gem 'kgio'
 group :development do
   gem 'rspec', '~> 2.8.0'
   gem 'pry'
+  gem 'tconsole'
+  gem 'nutrasuite'
+  gem 'factory_girl'
 end
