@@ -1,3 +1,5 @@
+require 'yaml'
+
 module Settings
   extend self
 
@@ -5,7 +7,6 @@ module Settings
 
   def method_missing( name )
     if !@settings
-      puts 'loading settings...'
       file = File.open CONFIG_FILE_PATH
       contents = file.read
       file.close
