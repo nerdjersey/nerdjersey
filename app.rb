@@ -1,5 +1,4 @@
 require 'sinatra/base'
-require 'sinatra/config_file'
 
 require 'sass'
 require 'compass'
@@ -16,9 +15,6 @@ require 'simplenote'
 
 
 class NerdJersey < Sinatra::Base
-  register Sinatra::ConfigFile
-  config_file './config/config.yml'
-
   require 'pry' if settings.development?
 
   # Libraries to include

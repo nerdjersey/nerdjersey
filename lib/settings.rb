@@ -1,12 +1,21 @@
 module Settings
   extend self
 
+  CONFIG_FILE_PATH = './config/config.yml'
+
   def method_missing( name )
-    method = name.to_sym
-    if NerdJersey.settings.respond_to?( method )
-      NerdJersey.settings.send( method )
+    if !@settings
+      puts 'loading settings...'
+      file = File.open CONFIG_FILE_PATH
+      contents = file.read
+      file.close
+      @settings = YAML.load(contents)
+    end
+    method = name.to_s
+    if @settings.include? method
+      @settings[method]
     else
-      raise NoMethodError
+      nil
     end
   end
 
