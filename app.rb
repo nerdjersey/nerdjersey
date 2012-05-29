@@ -57,6 +57,13 @@ class NerdJersey < Sinatra::Base
     erb 'cache cleared'
   end
 
+  get '/refresh' do
+    settings.cache.flush_all
+    Article.all
+    Page.all
+    redirect '/'
+  end
+
   get '/error' do
     params[:message]
   end
