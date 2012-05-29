@@ -3,7 +3,7 @@ class Document
   attr_reader :remote_key, :body, :metadata
 
   def self.all
-    if !Settings.cache.get( doc_type )
+    if !Cache.get( doc_type )
       documents = DocumentStore.list( doc_type ) || []
 
       documents.delete_if { |a| a.date > Time.now }
@@ -11,19 +11,19 @@ class Document
       documents.sort! { |a,b| b.date <=> a.date }
 
       documents.each do |d|
-        Settings.cache.set( d.permalink, d )
+        Cache.set( d.permalink, d )
       end
 
-      Settings.cache.set( doc_type, documents )
+      Cache.set( doc_type, documents )
     end
-    Settings.cache.get( doc_type )
+    Cache.get( doc_type )
   end
 
   def self.find( permalink )
-    if !Settings.cache.get( permalink )
+    if !Cache.get( permalink )
       all
     end
-    Settings.cache.get( permalink )
+    Cache.get( permalink )
   end
 
   def initialize( remote_key, document_data )

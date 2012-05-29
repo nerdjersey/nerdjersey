@@ -23,6 +23,7 @@ class NerdJersey < Sinatra::Base
 
   # Libraries to include
   require './lib/settings'
+  require './lib/cache'
   # require './lib/run_later'
   # require './lib/utils'
 
