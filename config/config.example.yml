@@ -11,5 +11,5 @@ simple_note_password: password
 
 # Either the folder name (Dropbox) or note tag (SimpleNote)
 # for articles and pages
-articles: articles
-pages: pages
+articles_folder: articles
+pages_folder: pages
