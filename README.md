@@ -20,8 +20,8 @@ The first real step is to get Dropbox set up. To do so, create an app here: [htt
 
 Once you have it, replace the necessary values in `config/config.example.yml` and rename the file to `config/config.yml`.
 
-    Dropbox::API::Config.app_key    = 'AAAAAAAAAAAAAAA'
-    Dropbox::API::Config.app_secret = 'BBBBBBBBBBBBBBB'
+    dropbox_app_key: AAAAAAAAAAAAAAA
+    dropbox_app_secret: BBBBBBBBBBBBBBB
 
 Back at the console, run
 
@@ -31,16 +31,20 @@ When you call this Rake task, it will ask you to provide the consumer key (app k
 
 Simply go to that url, authorize the app, then press `ENTER` in the console.
 
-The rake task will output provide the client token and client secret, which you can now add to `config/config.yml`.
+The rake task will provide the client token and client secret, which you can now add to `config/config.yml`.
 
-    DROPBOX_CLIENT_TOKEN = 'XXXXXXXXXXXXXXX'
-    DROPBOX_CLIENT_SECRET = 'YYYYYYYYYYYYYYY'
+    dropbox_client_token: XXXXXXXXXXXXXXX
+    dropbox_client_secret: YYYYYYYYYYYYYYY
 
 Congratulations! Dropbox is set up.
 
 ### File Structure
 
-Now, in your Dropbox, you should see an `Apps` folder with a subfolder named after your Dropbox application. You'll need to create two subfolders `articles` and `pages` as shown below.
+Now, in your Dropbox, you should see an `Apps` folder with a subfolder named after your Dropbox application. In order to get the folder structure set up, you can run the following rake task:
+
+    rake nerdjersey:setup:dropbox
+
+Alternatively, you can just create two subfolders `articles` and `pages` as shown below, but the rake task will also add an example article and page for you to work with.
 
 ![Nerd Jersey File Structure](http://nerdjersey.s3.amazonaws.com/images/Nerd%20Jersey%20File%20Structure.png)
 
