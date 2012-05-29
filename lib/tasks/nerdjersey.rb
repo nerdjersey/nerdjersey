@@ -25,11 +25,12 @@ namespace :nerdjersey do
       c = Dropbox::API::Client.new(:token => Settings.dropbox_client_token, :secret => Settings.dropbox_client_secret)
 
       # Set up /articles
+      articles_folder = Settings.articles_folder
       begin
-        c.find('articles/')
+        c.find("#{articles_folder}/")
       rescue Dropbox::API::Error::NotFound
         puts 'Adding articles folder...'
-        c.mkdir 'articles'
+        c.mkdir articles_folder
         puts 'Adding example article...'
         body = <<-BODY.unindent
           title: Oh, Hi!
@@ -38,15 +39,16 @@ namespace :nerdjersey do
 
           This site is published using [NerdJersey](http://github.com/nerdjersey/nerdjersey). Try it for yourself and change the way you publish, not the way you write.
         BODY
-        c.upload 'articles/My First Post.md', body
+        c.upload "#{articles_folder}/My First Post.md", body
       end
 
       # Set up /pages
+      pages_folder = Settings.pages_folder
       begin
-        c.find('pages/')
+        c.find("#{pages_folder}/")
       rescue Dropbox::API::Error::NotFound
         puts 'Adding pages folder...'
-        c.mkdir 'pages'
+        c.mkdir pages_folder
         puts 'Adding example page...'
         body = <<-BODY.unindent
           title: About Me
@@ -55,7 +57,7 @@ namespace :nerdjersey do
 
           I am one smart cookie.
         BODY
-        c.upload 'pages/About.md', body
+        c.upload "#{pages_folder}/About.md", body
       end
 
       puts 'Done!'
