@@ -24,7 +24,7 @@ class NerdJersey < Sinatra::Base
   # require './lib/utils'
 
   # Models to include
-  require './models/document_store'
+  require './models/document_store' if Settings.strategy
   require './models/document'
   require './models/article'
   require './models/page'
@@ -40,6 +40,11 @@ class NerdJersey < Sinatra::Base
     if request.path_info =~ /\/$/ && request.path_info != '/'
       request.path_info.gsub(/\/$/, '')
     end
+    # See if config.yml is loaded and display error if not
+    if !Settings.strategy
+      params[:message] = 'There is no config.yml file. Please see the README for instructions on setting up this file.' 
+      request.path_info = '/error'
+    end
   end
 
   get '/' do
@@ -50,6 +55,10 @@ class NerdJersey < Sinatra::Base
   get '/clear' do
     settings.cache.flush_all
     erb 'cache cleared'
+  end
+
+  get '/error' do
+    params[:message]
   end
 
   get '/stylesheets/:name.css' do
