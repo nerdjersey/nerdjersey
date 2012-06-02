@@ -36,9 +36,11 @@ class NerdJersey < Sinatra::Base
   end
 
   before do
-    # Kill trailing slash if it exists
+    # Set cache headers
+    response.headers['Cache-Control'] = 'public, max-age=300'
+    # Redirect to non-trailing slash, if slash exists
     if request.path_info =~ /\/$/ && request.path_info != '/'
-      request.path_info.gsub(/\/$/, '')
+      redirect request.path_info.gsub(/\/$/, '')
     end
     # See if config.yml is loaded and display error if not
     if !Settings.strategy
