@@ -3,7 +3,7 @@ class Document
   attr_reader :remote_key, :body, :metadata
 
   def self.all
-    if !Cache.get( doc_type )
+    if !Cache.get( "/#{doc_type}" )
       documents = DocumentStore.list( doc_type ) || []
 
       documents.delete_if { |a| a.date > Time.now }
@@ -12,11 +12,13 @@ class Document
 
       documents.each do |d|
         Cache.set( d.permalink, d )
+        # Sets a reference for document lookup
+        Cache.set( d.remote_key, d.permalink )
       end
 
-      Cache.set( doc_type, documents )
+      Cache.set( "/#{doc_type}", documents )
     end
-    Cache.get( doc_type )
+    Cache.get( "/#{doc_type}" )
   end
 
   def self.find( permalink )
