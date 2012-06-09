@@ -1,3 +1,8 @@
+include_dirs = %w(config lib models)
+include_dirs.each do |dir|
+  $:.unshift(File.join(File.dirname(__FILE__), dir))
+end
+
 require 'sinatra/base'
 
 require 'sass'
@@ -18,16 +23,16 @@ class NerdJersey < Sinatra::Base
   require 'pry' if settings.development?
 
   # Libraries to include
-  require './lib/settings'
-  require './lib/cache'
+  require 'settings'
+  require 'cache'
   # require './lib/run_later'
   # require './lib/utils'
 
   # Models to include
-  require './models/document_store' if Settings.strategy
-  require './models/document'
-  require './models/article'
-  require './models/page'
+  require 'document_store' if Settings.strategy
+  require 'document'
+  require 'article'
+  require 'page'
 
   configure do
     Compass.add_project_configuration(File.join(root, 'config', 'compass.config'))

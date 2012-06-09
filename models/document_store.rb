@@ -1,5 +1,5 @@
-require './models/document_stores/dropbox'
-require './models/document_stores/simple_note'
+require 'document_stores/dropbox'
+require 'document_stores/simple_note'
 
 class DocumentStore
 
