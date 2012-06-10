@@ -4,21 +4,26 @@ class Document
 
   def self.all
     if !Cache.get( "/#{doc_type}" )
-      documents = DocumentStore.list( doc_type ) || []
+      DocumentStore.delta
+      # documents = DocumentStore.list( doc_type ) || []
 
-      documents.delete_if { |a| a.date > Time.now }
-      documents.delete_if { |a| a.published == false || a.publish == false }
-      documents.sort! { |a,b| b.date <=> a.date }
+      # documents.sort! { |a,b| b.date <=> a.date }
 
-      documents.each do |d|
-        Cache.set( d.permalink, d )
-        # Sets a reference for document lookup
-        Cache.set( d.remote_key, d.permalink )
-      end
+      # documents.each do |d|
+      #   Cache.set( d.permalink, d )
+      #   # Sets a reference for document lookup
+      #   Cache.set( d.remote_key, d.permalink )
+      # end
 
-      Cache.set( "/#{doc_type}", documents )
+      # Cache.set( "/#{doc_type}", documents )
     end
-    Cache.get( "/#{doc_type}" )
+
+    cached_documents = Cache.get( "/#{doc_type}" )
+
+    # Remove documents with a date/time later than current date/time
+    cached_documents.delete_if { |a| a.date > Time.now }
+    # Remove documents with publish/published flag set to false
+    cached_documents.delete_if { |a| a.published == false || a.publish == false }
   end
 
   def self.find( permalink )

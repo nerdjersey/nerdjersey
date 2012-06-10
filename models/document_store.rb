@@ -5,6 +5,10 @@ class DocumentStore
 
   @@strategy = "DocumentStore::#{Settings.document_store.classify}Store".constantize
 
+  def self.delta
+    @@strategy.delta
+  end
+
   def self.list( query )
     @@strategy.list( query )
   end
