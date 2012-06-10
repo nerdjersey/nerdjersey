@@ -25,8 +25,7 @@ class NerdJersey < Sinatra::Base
   # Libraries to include
   require 'settings'
   require 'cache'
-  # require './lib/run_later'
-  # require './lib/utils'
+  require 'run_later'
 
   # Models to include
   require 'document_store' if Settings.document_store
@@ -38,20 +37,24 @@ class NerdJersey < Sinatra::Base
     Compass.add_project_configuration(File.join(root, 'config', 'compass.config'))
     # Slim::Engine.set_default_options :sections => true
     set :cache, Dalli::Client.new
+    enable :logging
   end
 
   before do
     # Set cache headers
     response.headers['Cache-Control'] = 'public, max-age=300'
+
     # Redirect to non-trailing slash, if slash exists
     if request.path_info =~ /\/$/ && request.path_info != '/'
       redirect request.path_info.gsub(/\/$/, '')
     end
+
     # See if config.yml is loaded and display error if not
     if !Settings.document_store
       params[:message] = 'There is no config.yml file. Please see the README for instructions on setting up this file.' 
       request.path_info = '/error'
     end
+
   end
 
   get '/' do
