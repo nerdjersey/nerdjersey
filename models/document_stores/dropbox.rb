@@ -32,14 +32,21 @@ class DocumentStore
         permalink = Cache.get(path)
         old_document = Cache.get(permalink) if permalink
 
+        # TODO: DRY this stuff up
         if meta.nil?
           Cache.set(permalink, nil) if permalink
           Cache.set(path, nil)
           # Find the document in the document array and remove it
           if is_article?( path )
-            articles.delete_if { |x| x == old_document } unless permalink.nil?
+            match = articles.detect { |a| a.remote_key == old_document.remote_key }
+            if match
+              articles.delete( match )
+            end
           elsif is_page?( path )
-            pages.delete_if { |x| x == old_document } unless permalink.nil?
+            match = pages.detect { |p| p.remote_key == old_document.remote_key }
+            if match
+              pages.delete( match )
+            end
           end
         else
           # Create a new document and append it to respective document array
