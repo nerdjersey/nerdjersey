@@ -29,7 +29,7 @@ class NerdJersey < Sinatra::Base
   # require './lib/utils'
 
   # Models to include
-  require 'document_store' if Settings.strategy
+  require 'document_store' if Settings.document_store
   require 'document'
   require 'article'
   require 'page'
@@ -48,7 +48,7 @@ class NerdJersey < Sinatra::Base
       redirect request.path_info.gsub(/\/$/, '')
     end
     # See if config.yml is loaded and display error if not
-    if !Settings.strategy
+    if !Settings.document_store
       params[:message] = 'There is no config.yml file. Please see the README for instructions on setting up this file.' 
       request.path_info = '/error'
     end

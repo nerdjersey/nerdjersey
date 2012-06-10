@@ -1,5 +1,11 @@
-strategy: dropbox
+# The document store to use. Can be either 'dropbox' or 'simplenote', however
+# currently only 'dropbox' is supported.
+document_store: dropbox
+# Time in minutes, after which to check for changes. Only happens after a request,
+# so will not actually check every X minutes unless you're John Gruber
+refresh_after: 1
 
+# Dropbox API credentials
 dropbox_app_key: AAAAAAAAAAAAAAA
 dropbox_app_secret: BBBBBBBBBBBBBBB
 dropbox_client_token: XXXXXXXXXXXXXXX
@@ -9,7 +15,7 @@ dropbox_client_secret: YYYYYYYYYYYYYYY
 simple_note_username: you@email.com
 simple_note_password: password
 
-# Either the folder name (Dropbox) or note tag (SimpleNote)
+# Either the folder name (for Dropbox) or note tag (for SimpleNote)
 # for articles and pages
 articles_folder: articles
 pages_folder: pages

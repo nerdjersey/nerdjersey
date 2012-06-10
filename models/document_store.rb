@@ -3,7 +3,7 @@ require 'document_stores/simple_note'
 
 class DocumentStore
 
-  @@strategy = "DocumentStore::#{Settings.strategy.classify}Store".constantize
+  @@strategy = "DocumentStore::#{Settings.document_store.classify}Store".constantize
 
   def self.list( query )
     @@strategy.list( query )
