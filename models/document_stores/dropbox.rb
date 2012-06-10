@@ -43,7 +43,7 @@ class DocumentStore
           end
         else
           # Create a new document and append it to respective document array
-          if is_document?( path )
+          if is_document?( path ) && !meta.is_dir
             document = self.find( base_folder(path), path )
             Cache.set( document.permalink, document )
             Cache.set( document.remote_key, document.permalink )
