@@ -143,7 +143,7 @@ class NerdJersey < Sinatra::Base
 
     def check_deltas
       # Check cache if necessary
-      if Cache.get('nerdjersey::last_updated_at') && Cache.get('nerdjersey::last_updated_at') < Settings.refresh_after.minutes.ago
+      if Cache.get('nerdjersey::last_updated_at') && Cache.get('nerdjersey::last_updated_at') < Settings.delta_check_after.minutes.ago
         puts 'running later'
         run_later do
           DocumentStore.delta

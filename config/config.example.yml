@@ -2,8 +2,9 @@
 # currently only 'dropbox' is supported.
 document_store: dropbox
 # Time in minutes, after which to check for changes. Only happens after a request,
-# so will not actually check every X minutes unless you're John Gruber
-refresh_after: 1
+# so will not actually check every X minutes unless you're John Gruber.
+# Dropbox kindly asks that you keep this at 5 or more.
+delta_check_after: 5
 
 # Dropbox API credentials
 dropbox_app_key: AAAAAAAAAAAAAAA
