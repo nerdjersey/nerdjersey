@@ -28,5 +28,5 @@ group :development do
   gem 'pry'
   gem 'tconsole'
   gem 'nutrasuite'
-  gem 'factory_girl'
+  # gem 'factory_girl'
 end

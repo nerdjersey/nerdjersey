@@ -44,8 +44,6 @@ GEM
     eventmachine (0.12.10)
     execjs (1.2.13)
       multi_json (~> 1.0)
-    factory_girl (3.3.0)
-      activesupport (>= 3.0.0)
     fssm (0.2.8.1)
     haml (3.1.1)
     hashie (1.2.0)
@@ -118,7 +116,6 @@ DEPENDENCIES
   compass_twitter_bootstrap!
   dalli
   dropbox-api!
-  factory_girl
   haml
   hashie
   i18n
