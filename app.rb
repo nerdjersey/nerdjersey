@@ -18,7 +18,6 @@ require 'active_support/core_ext'
 require 'dropbox-api'
 require 'simplenote'
 
-
 class NerdJersey < Sinatra::Base
   require 'pry' if settings.development?
 
@@ -58,6 +57,7 @@ class NerdJersey < Sinatra::Base
   end
 
   get '/' do
+    check_deltas
     articles = Article.all
     slim :index, :locals => { :articles => articles }
   end
@@ -89,6 +89,7 @@ class NerdJersey < Sinatra::Base
   end
 
   get '/:slug' do
+    check_deltas
     content_type 'text/html', :charset => 'utf-8'
     page = Page.find( '/pages/' + params[:slug] )
     if page
@@ -101,6 +102,7 @@ class NerdJersey < Sinatra::Base
   end
 
   get '/articles/:slug' do
+    check_deltas
     content_type 'text/html', :charset => 'utf-8'
     # date = [ params[:year], params[:month], params[:day] ].join('-')
     article = Article.find( '/articles/' + params[:slug] )
@@ -136,6 +138,16 @@ class NerdJersey < Sinatra::Base
         end.join("\n")
       else
         slim(:"#{template}", options)
+      end
+    end
+
+    def check_deltas
+      # Check cache if necessary
+      if Cache.get('nerdjersey::last_updated_at') && Cache.get('nerdjersey::last_updated_at') < Settings.refresh_after.minutes.ago
+        puts 'running later'
+        run_later do
+          DocumentStore.delta
+        end
       end
     end
 
