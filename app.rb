@@ -68,9 +68,7 @@ class NerdJersey < Sinatra::Base
   end
 
   get '/refresh' do
-    settings.cache.flush_all
-    Article.all
-    Page.all
+    DocumentStore.delta
     redirect '/'
   end
 
